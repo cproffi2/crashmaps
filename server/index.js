@@ -24,11 +24,19 @@ let db;
 
 async function connectDB() {
     try {
-        if (!mongoUri) throw new Error("Missing MONGODB_URI");
-        const client = new MongoClient(mongoUri);
+        if (!mongoUri) throw new Error("❌ Missing MONGODB_URI");
+
+        console.log("🔌 Connecting to MongoDB using URI:", mongoUri);
+        const client = new MongoClient(mongoUri, { useUnifiedTopology: true });
+
         await client.connect();
+        console.log("✅ Connected to MongoDB client. Pinging admin...");
+
+        // PING test
+        await client.db("admin").command({ ping: 1 });
+        console.log("✅ Ping successful! MongoDB connection is alive.");
+
         db = client.db("BCCData");
-        console.log("✅ Connected to MongoDB");
     } catch (error) {
         console.error("❌ MongoDB Connection Error:", error);
     }
