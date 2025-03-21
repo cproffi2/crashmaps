@@ -7,6 +7,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
+console.log("every env var:", process.env)
 // Setup EJS for dynamic HTML rendering
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../public'));
