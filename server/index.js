@@ -17,6 +17,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 // MongoDB Connection
 const mongoUri = process.env.MONGODB_URI;
 console.log(mongoUri)
+console.log("Mongo URI from env:", process.env.MONGODB_URI);
+
 let db;
 
 async function connectDB() {
