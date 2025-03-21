@@ -1,7 +1,7 @@
 // Function to fetch crash data from your backend
 async function fetchCrashData() {
     try {
-        const response = await fetch("https://crashmaps.onrender.com/api/crashes");
+        const response = await fetch("crashmaps-production.up.railway.app/api/crashes");
         const data = await response.json();
         console.log('Crash data received:', data);  // Log the data to check its structure
         return Array.isArray(data) ? data : [];  // Ensure it's an array before using it
