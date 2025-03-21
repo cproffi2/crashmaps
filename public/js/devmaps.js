@@ -90,6 +90,4 @@ async function initMap() {
 }
 
 // Ensure the map is initialized after the DOM is fully loaded
-window.onload = () => {
-    initMap();
-};
+window.initMap = initMap;
