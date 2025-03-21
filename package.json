@@ -1,0 +1,40 @@
+{
+  "name": "crashmaps",
+  "version": "1.0.0",
+  "description": "Crashmaps with MongoDB backend",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "@googlemaps/markerclusterer": "^2.5.3",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "firebase": "^11.2.0",
+    "mongodb": "^6.15.0",
+    "mongoose": "^6.13.8",
+    "node-fetch": "^3.3.2",
+    "tunnel": "^0.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cproffi2/crashmaps.git"
+  },
+  "keywords": [],
+  "author": "Conor Proffitt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cproffi2/crashmaps/issues"
+  },
+  "homepage": "https://github.com/cproffi2/crashmaps#readme"
+}
