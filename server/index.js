@@ -49,7 +49,7 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
         const collection = db.collection("LACityData");
-        const crashes = await collection.find({}).limit(630000).toArray();
+        const crashes = await collection.find({}).limit(1000).toArray();
         res.json(crashes);
     } catch (error) {
         console.error("❌ Error fetching crash data:", error);
