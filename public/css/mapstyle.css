@@ -1,0 +1,67 @@
+/*
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map.
+ */
+ #map {
+    height: 100%;
+  }
+  
+  .crashIcon {
+      
+      content:url("https://static.thenounproject.com/png/11183-200.png");
+      height:80px;
+      width:80px;
+   
+      filter: invert(.25);
+  
+  }
+  
+  .pedestrianIcon{
+      
+       content:url("../assets/carpedn.png");
+      height:80px;
+      width:80px;
+   
+      filter: invert(.25);
+      
+      
+  }
+  
+  #nav {
+      
+      text-align:center;
+      
+  }
+  
+  #logo {
+      
+
+         height: 160px;
+         width: 180px;
+  }
+  
+
+
+.header{
+    
+    position:sticky;
+    top: 0;
+    height: 160px;
+    
+    padding: 10px;
+    background: #FFFFFF;
+    color: #003399;
+}
+  
+
+
+  
+  /*
+   * Optional: Makes the sample page fill the window.
+   */
+  html,
+  body {
+    height: 80%;
+    margin: 10;
+    padding: 10;
+  }
