@@ -1,3 +1,6 @@
+process.env.DEBUG = 'mongodb';
+
+
 require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
