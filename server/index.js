@@ -30,7 +30,9 @@ async function connectDB() {
         if (!mongoUri) throw new Error("❌ Missing MONGODB_URI");
 
         console.log("🔌 Connecting to MongoDB using URI:", mongoUri);
-        const client = new MongoClient(mongoUri, { useUnifiedTopology: true });
+        const client = new MongoClient(mongoUri, { useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 60000
+        });
 
         await client.connect();
         console.log("✅ Connected to MongoDB client. Pinging admin...");
@@ -61,7 +63,7 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
         const collection = db.collection("LACityData");
-        const crashes = await collection.find({}).limit(630000).toArray();
+        const crashes = await collection.find({}).limit(60).toArray();
         res.json(crashes);
     } catch (error) {
         console.error("❌ Error fetching crash data:", error);
