@@ -36,7 +36,7 @@ async function connectDB() {
         console.log("🔌 Connecting to MongoDB using URI:", mongoUri);
 
         const client = new MongoClient(mongoUri, {
-            useUnifiedTopology: true,
+           
             serverSelectionTimeoutMS: 60000, // Timeout after 60 seconds
             // Enables more verbose logging for connections
            // You can also try 'trace' for even more verbosity
