@@ -23,12 +23,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 // MongoDB Connection
 const mongoUri = process.env.MONGODB_URI;
 
+//globally scoped db
+let db;
 
-
-
-        // Get the database instance
-        const db = client.db("BCCData");
-
+   
 async function connectDB() {
 
     console.log('does this even do anything')
@@ -51,6 +49,9 @@ async function connectDB() {
         // Ping the database to ensure the connection is working properly
         const pingResult = await client.db("admin").command({ ping: 1 });
         console.log("✅ Ping successful! MongoDB connection is alive:", pingResult);
+
+             // Get the database instance
+       db = client.db("BCCData");
 
 
         // You can now perform further operations, like fetching data
