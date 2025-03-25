@@ -22,13 +22,12 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // MongoDB Connection
 const mongoUri = process.env.MONGODB_URI;
-console.log("Mongo URI from env:", mongoUri);
-
-console.log('Mongo URI:', process.env.MONGODB_URI);
-console.log('Google Maps API Key:', process.env.GOOGLE_MAPS_API_KEY);
 
 
-let db;
+
+
+        // Get the database instance
+        const db = client.db("BCCData");
 
 async function connectDB() {
 
@@ -53,8 +52,6 @@ async function connectDB() {
         const pingResult = await client.db("admin").command({ ping: 1 });
         console.log("✅ Ping successful! MongoDB connection is alive:", pingResult);
 
-        // Get the database instance
-        const db = client.db("BCCData");
 
         // You can now perform further operations, like fetching data
         const collection = db.collection("LACityData");
@@ -62,7 +59,8 @@ async function connectDB() {
         console.log("Sample data from LACityData collection:", data);
 
     } catch (error) {
-        console.error("❌ MongoDB Connection Error:", error);
+        console.error("❌ MongoDB Connection Error:", error.message, error.stack);
+
     }
 }
 
