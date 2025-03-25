@@ -1,6 +1,3 @@
-process.env.DEBUG = 'mongodb';
-
-
 require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
@@ -10,7 +7,12 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-console.log("every env var:", process.env)
+console.log("every env var:", process.env);
+
+// Setup MongoDB Debug Level (if set in .env file)
+const debug = process.env.DEBUG || 'mongodb*';  // Default to 'mongodb*' if not set in the .env
+console.log("Mongo debug level from env:", debug);
+
 // Setup EJS for dynamic HTML rendering
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../public'));
@@ -20,32 +22,50 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // MongoDB Connection
 const mongoUri = process.env.MONGODB_URI;
-console.log(mongoUri)
-console.log("Mongo URI from env:", process.env.MONGODB_URI);
+console.log("Mongo URI from env:", mongoUri);
+
+console.log('Mongo URI:', process.env.MONGODB_URI);
+console.log('Google Maps API Key:', process.env.GOOGLE_MAPS_API_KEY);
+
 
 let db;
 
 async function connectDB() {
+
+    console.log('does this even do anything')
     try {
         if (!mongoUri) throw new Error("❌ Missing MONGODB_URI");
 
         console.log("🔌 Connecting to MongoDB using URI:", mongoUri);
-        const client = new MongoClient(mongoUri, { useUnifiedTopology: true,
-            serverSelectionTimeoutMS: 60000
+
+        const client = new MongoClient(mongoUri, {
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 60000, // Timeout after 60 seconds
+            // Enables more verbose logging for connections
+           // You can also try 'trace' for even more verbosity
         });
 
         await client.connect();
-        console.log("✅ Connected to MongoDB client. Pinging admin...");
 
-        // PING test
-        await client.db("admin").command({ ping: 1 });
-        console.log("✅ Ping successful! MongoDB connection is alive.");
+        console.log("✅ Connected to MongoDB client.");
 
-        db = client.db("BCCData");
+        // Ping the database to ensure the connection is working properly
+        const pingResult = await client.db("admin").command({ ping: 1 });
+        console.log("✅ Ping successful! MongoDB connection is alive:", pingResult);
+
+        // Get the database instance
+        const db = client.db("BCCData");
+
+        // You can now perform further operations, like fetching data
+        const collection = db.collection("LACityData");
+        const data = await collection.find({}).limit(1).toArray();
+        console.log("Sample data from LACityData collection:", data);
+
     } catch (error) {
         console.error("❌ MongoDB Connection Error:", error);
     }
 }
+
 
 // Route: Homepage
 app.get('/', (req, res) => {
