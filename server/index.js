@@ -88,9 +88,24 @@ app.get('/api/crashes', async (req, res) => {
         let query = {};
 
         if (year) {
+
+            console.log("Year provided:", year);
+            console.log("Type of year:", typeof year);
+            // Check if the year is a valid number
+            if (isNaN(year) || year.length !== 4) {
+                return res.status(400).json({ error: "Invalid year format" });
+            }
+            // Convert year to a number
+            const yearNum = parseInt(year, 10);
+            console.log("Parsed year:", yearNum);
+            // Check if the year is within a reasonable range
+            if (yearNum < 1900 || yearNum > new Date().getFullYear()) {
+                return res.status(400).json({ error: "Year out of range" });
+            }
+            console.log("Year is valid and in range:", yearNum);
             // Construct a date range filter for the year
-            const startDate = new Date(`${year}-01-01T00:00:00Z`); // Start of the year
-            const endDate = new Date(`${year}-12-31T23:59:59Z`); // End of the year
+            const startDate = new Date(`${yearNum}-01-01T00:00:00Z`); // Start of the year
+            const endDate = new Date(`${yearNum}-12-31T23:59:59Z`); // End of the year
 
             // Filter by date range (start of year to start of next year)
             query.date_occ = {
