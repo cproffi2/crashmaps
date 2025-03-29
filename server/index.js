@@ -93,8 +93,8 @@ app.get('/api/crashes', async (req, res) => {
 
             // Filter by date range (start of year to start of next year)
             query.date_occ = {
-                $gte: startOfYear,
-                $lt: startOfNextYear
+                $gte: startDate,
+                $lt: endDate
             };
         }
 
