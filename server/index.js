@@ -53,7 +53,7 @@ async function connectDB() {
         console.log("✅ Ping successful! MongoDB connection is alive.");
 
         // Assign the global db variable after successful connection
-        db = client.db("test");
+        db = client.db("CrashData");
 
         // If needed, log the database name or perform any necessary actions
         console.log("Database set to:", db.databaseName);
@@ -88,8 +88,8 @@ app.get('/api/crashes', async (req, res) => {
 
         if (year) {
             // Construct a date range filter for the year
-            const startOfYear = new Date(`${year}-01-01T00:00:00.000Z`);
-            const startOfNextYear = new Date(`${parseInt(year) + 1}-01-01T00:00:00.000Z`);
+            const startDate = new Date(`${year}-01-01T00:00:00Z`); // Start of the year
+            const endDate = new Date(`${year}-12-31T23:59:59Z`); // End of the year
 
             // Filter by date range (start of year to start of next year)
             query.date_occ = {
@@ -99,7 +99,7 @@ app.get('/api/crashes', async (req, res) => {
         }
 
         const collection = db.collection("LACityData");
-        const crashes = await collection.find(query).limit(60000).toArray();
+        const crashes = await collection.find(query).limit(650000).toArray();
         res.json(crashes);
     } catch (error) {
         console.error("❌ Error fetching crash data:", error);
