@@ -81,7 +81,7 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
 
-        const { year } = req.query;
+        const { year, dr_no } = req.query;
         console.log("Year from query:", year);
 
         let query = {};
