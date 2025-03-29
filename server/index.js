@@ -80,7 +80,7 @@ app.get('/maps', (req, res) => {
 app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
-        const collection = db.collection("test.LACityData");
+        const collection = db.collection("LACityData");
         const crashes = await collection.find({}).limit(60).toArray();
         res.json(crashes);
     } catch (error) {
