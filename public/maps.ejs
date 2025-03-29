@@ -28,11 +28,11 @@
     </div>
 
     <div id="map"></div>
-
+<div>
         <!-- Add a dropdown for selecting the year -->
         <select id="year-filter" onchange="filterByYear()">
             <option value="">Select Year</option>
-            <option value="<%= currentYear %>"><%= currentYear %></option> <!-- Default to the current year -->
+            <!-- Options will be populated dynamically with JavaScript -->
         </select>
     </div>
 
@@ -43,7 +43,7 @@
 
     // Populate the year dropdown dynamically with options from 2020 to the current year
     const yearSelect = document.getElementById("year-filter");
-    for (let year = 2020; year <= currentYear; year++) {
+    for (let year = 2010; year <= currentYear; year++) {
         const option = document.createElement("option");
         option.value = year;
         option.textContent = year;
