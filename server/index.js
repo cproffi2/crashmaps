@@ -81,30 +81,27 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
 
-        const {year} = req.query;
+        const { year } = req.query;
         console.log("Year from query:", year);
-        // query obj
+
         let query = {};
 
-        if(year) {
+        if (year) {
+            // Construct a date range filter for the year
+            const startOfYear = new Date(`${year}-01-01T00:00:00.000Z`);
+            const startOfNextYear = new Date(`${parseInt(year) + 1}-01-01T00:00:00.000Z`);
 
-            query.date_occ = { $regex: `^${year}` }; // Filter by year
-
+            // Filter by date range (start of year to start of next year)
+            query.date_occ = {
+                $gte: startOfYear,
+                $lt: startOfNextYear
+            };
         }
 
-
-
-
         const collection = db.collection("LACityData");
-        const crashes = await collection.find({}).limit(60000).toArray();
+        const crashes = await collection.find(query).limit(60000).toArray();
         res.json(crashes);
-    } 
-    
-    
-    
-
-    
-    catch (error) {
+    } catch (error) {
         console.error("❌ Error fetching crash data:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
