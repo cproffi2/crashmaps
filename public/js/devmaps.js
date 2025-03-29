@@ -69,7 +69,7 @@ async function initMap() {
         const marker = new google.maps.Marker({
             position,
             map,
-            title: `${formattedDate} <br> ${formattedTime} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes.join(', ')}`,
+            title: `${formattedDate} <br> ${formattedTime} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
         });
 
         // Add click event to open infoWindow
