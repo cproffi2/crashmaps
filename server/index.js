@@ -24,46 +24,45 @@ app.use(express.static(path.join(__dirname, '../public')));
 const mongoUri = process.env.MONGODB_URI;
 
 //globally scoped db
-let db;
-
-   
+let db;  
 async function connectDB() {
+    console.log("🔌 Connecting to MongoDB...");
 
-    console.log('does this even do anything')
+    // Check if the Mongo URI exists
+    if (!process.env.MONGODB_URI) {
+        console.error("❌ Missing MONGODB_URI");
+        return;
+    }
+
+    const mongoUri = process.env.MONGODB_URI;
+
     try {
-        if (!mongoUri) throw new Error("❌ Missing MONGODB_URI");
-
-        console.log("🔌 Connecting to MongoDB using URI:", mongoUri);
-
+        // Initialize the MongoDB client
         const client = new MongoClient(mongoUri, {
-           
-            serverSelectionTimeoutMS: 60000, // Timeout after 60 seconds
-            // Enables more verbose logging for connections
-           // You can also try 'trace' for even more verbosity
+            serverSelectionTimeoutMS: 60000,  // Timeout after 60 seconds
         });
 
+        // Try to connect to MongoDB
         await client.connect();
 
         console.log("✅ Connected to MongoDB client.");
 
-        // Ping the database to ensure the connection is working properly
-        const pingResult = await client.db("admin").command({ ping: 1 });
-        console.log("✅ Ping successful! MongoDB connection is alive:", pingResult);
+        // Ping the database to ensure connection is active
+        await client.db("admin").command({ ping: 1 });
 
-             // Get the database instance
-       db = client.db("BCCData");
+        console.log("✅ Ping successful! MongoDB connection is alive.");
 
+        // Assign the global db variable after successful connection
+        db = client.db("BCCData");
 
-        // You can now perform further operations, like fetching data
-        const collection = db.collection("LACityData");
-        const data = await collection.find({}).limit(1).toArray();
-        console.log("Sample data from LACityData collection:", data);
+        // If needed, log the database name or perform any necessary actions
+        console.log("Database set to:", db.databaseName);
 
     } catch (error) {
         console.error("❌ MongoDB Connection Error:", error.message, error.stack);
-
     }
 }
+
 
 
 // Route: Homepage
