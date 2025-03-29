@@ -29,8 +29,14 @@
 
     <div id="map"></div>
 
+        <!-- Add a dropdown for selecting the year -->
+        <select id="year-filter" onchange="filterByYear()">
+            <option value="">Select Year</option>
+            <option value="<%= currentYear %>"><%= currentYear %></option> <!-- Default to the current year -->
+        </select>
+    </div>
 
-
+    <script src="./js/devmaps.js"></script>
 <script>
     // Get the current year
     const currentYear = new Date().getFullYear();
@@ -47,7 +53,7 @@
         yearSelect.appendChild(option);
     }
 </script>
-<script src="./js/devmaps.js"></script>
+
     <!-- Form for adding crash data (optional) -->
     <!--
     <form class="container" method="post" action="/">
