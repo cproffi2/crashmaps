@@ -1,3 +1,27 @@
+
+
+// Function to filter data by selected year
+async function filterByYear() {
+    const selectedYear = document.getElementById("year-filter").value;
+    const url = selectedYear ? `/api/crashes?year=${selectedYear}` : '/api/crashes';
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log('Filtered crash data:', data);
+
+    // Handle the data and update the markers on the map as needed
+    updateMapWithCrashData(data);
+}
+
+// Function to update the map with the crash data (add markers)
+function updateMapWithCrashData(crashData) {
+    // Clear existing markers
+    // Add new markers based on crashData
+}
+
+
+
+
 // Function to fetch crash data from your backend
 async function fetchCrashData() {
     try {

@@ -15,6 +15,23 @@
     </script>
 
 
+<script>
+    // Get the current year
+    const currentYear = new Date().getFullYear();
+
+    // Populate the year dropdown dynamically with options from 2020 to the current year
+    const yearSelect = document.getElementById("year-filter");
+    for (let year = 2020; year <= currentYear; year++) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        if (year === currentYear) {
+            option.selected = true; // Set current year as the default
+        }
+        yearSelect.appendChild(option);
+    }
+</script>
+
     <script src="./js/devmaps.js"></script>
 </head>
 
@@ -24,7 +41,7 @@
     </div> 
 
     <div id="nav">
-        <h3>Crash Maps</h3>
+        <h1>Crash Maps</h1>
     </div>
 
     <div id="map"></div>

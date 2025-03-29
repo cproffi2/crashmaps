@@ -80,10 +80,31 @@ app.get('/maps', (req, res) => {
 app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
+
+        const {year} = req.query;
+        console.log("Year from query:", year);
+        // query obj
+        let query = {};
+
+        if(year) {
+
+            query.date_occ = { $regex: `^${year}` }; // Filter by year
+
+        }
+
+
+
+
         const collection = db.collection("LACityData");
-        const crashes = await collection.find({}).limit(630000).toArray();
+        const crashes = await collection.find({}).limit(60000).toArray();
         res.json(crashes);
-    } catch (error) {
+    } 
+    
+    
+    
+
+    
+    catch (error) {
         console.error("❌ Error fetching crash data:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
