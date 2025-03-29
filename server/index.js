@@ -53,7 +53,7 @@ async function connectDB() {
         console.log("✅ Ping successful! MongoDB connection is alive.");
 
         // Assign the global db variable after successful connection
-        db = client.db("BCCData");
+        db = client.db("test");
 
         // If needed, log the database name or perform any necessary actions
         console.log("Database set to:", db.databaseName);
@@ -80,7 +80,7 @@ app.get('/maps', (req, res) => {
 app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
-        const collection = db.collection("LACityData");
+        const collection = db.collection("test.LACityData");
         const crashes = await collection.find({}).limit(60).toArray();
         res.json(crashes);
     } catch (error) {
