@@ -98,6 +98,12 @@ app.get('/api/crashes', async (req, res) => {
             };
         }
 
+        if(dr_no){
+            query.dr_no = dr_no
+        }
+        console.log("MongoDB query:", query);
+        // Fetch crash data from MongoDB
+
         const collection = db.collection("LACityData");
         const crashes = await collection.find(query).limit(650000).toArray();
         res.json(crashes);
