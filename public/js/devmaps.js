@@ -54,15 +54,8 @@ async function initMap() {
 
     const infoWindow = new InfoWindow();
 
-    // 💥 Filter for crashes where `mocode` includes a specific numerical code
-    const filterMocode = "3603";  // The numeric `mocode` you want to filter by
-    const filteredCrashes = crashData.filter(entry =>
-        entry.mocodes &&
-        Array.isArray(entry.mocodes) &&
-        entry.mocodes.includes(filterMocode)
-    );
 
-    filteredCrashes.forEach(({ coords, street1, street2, date_occ, time_occ, area_name, mocodes }) => {
+    crashData.forEach(({ coords, street1, street2, date_occ, time_occ, area_name, mocodes }) => {
         if (!coords || !coords.latitude || !coords.longitude) return;
 
         const position = { lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude) };
