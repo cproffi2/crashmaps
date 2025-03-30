@@ -119,6 +119,7 @@ app.get('/api/crashes', async (req, res) => {
                 [MongoClient.OPERATOR_LT]: endDate      // Similarly for $lt
             };
             
+        }
 
         if(dr_no){
             query.dr_no = dr_no
