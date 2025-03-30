@@ -89,14 +89,15 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
 
-        const {year,  dr_no, area_name, vict_sex, vict_descent, vict_age } = req.query;
-      
-
+        // Use current year as default if no year is specified
+        const { year, dr_no, area_name, vict_sex, vict_descent, vict_age } = req.query;
+        const currentYear = new Date().getFullYear(); // Get current year if no year is provided
+        const selectedYear = year || currentYear;  // Default to current year if no year specified
         let query = {};
 
         if(year){
-            const startDate = new Date(2025, 0, 1); // January 1st of the year
-            const endDate = new Date(2025, 11, 31); // December 31st of the year
+            const startDate = new Date(year, 0, 1); // January 1st of the year
+            const endDate = new Date(year, 11, 31); // December 31st of the year
 
             console.log(typeof startDate)
             console.log(typeof endDate)
