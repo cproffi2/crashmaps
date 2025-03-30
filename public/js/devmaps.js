@@ -104,11 +104,11 @@ function formatTime(timeString) {
 
     return `${hour}:${minute} ${ampm}`;
 }
-
+const {AdvancedMarkerElement, PinElement} = await google.maps.importLibrary("marker",);
 // Function to initialize the map
 async function initMap() {
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-    const {AdvancedMarkerElement, PinElement} = await google.maps.importLibrary("marker",);
+
     const centerOfCulverCity = { lat: 34.0211, lng: -118.3965 };
 
     map = new Map(document.getElementById("map"), {
