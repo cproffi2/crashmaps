@@ -114,11 +114,10 @@ app.get('/api/crashes', async (req, res) => {
             console.log("Type of start date:", typeof startDate);
             console.log("Type of end date:", typeof endDate);
             // Filter by date range (start of year to start of next year)
-            query.date_occ = {
-                [MongoClient.OPERATOR_GTE]: startDate,  // Using MongoDB's operator without quotes
-                [MongoClient.OPERATOR_LT]: endDate      // Similarly for $lt
+            query['date_occ'] = { 
+                $gte: startDate,
+                $lt: endDate
             };
-            
         }
 
         if(dr_no){
