@@ -99,8 +99,8 @@ app.get('/api/crashes', async (req, res) => {
             console.log(`the end date is ${endDate}`)
 
             query.date_occ = {
-                $gte: startDate,
-                $lte: endDate
+                $gte: new ISODate("2025-01-01T00:00:00.000Z"), // Explicitly using ISODate
+                $lte: new ISODate("2025-12-31T23:59:59.000Z")  // Explicitly using ISODate
             };
         }
 
