@@ -96,8 +96,8 @@ app.get('/api/crashes', async (req, res) => {
         let query = {};
 
         if(year){
-            const startDate = new Date(selectedYear, 0, 1); // January 1st of the year
-            const endDate = new Date(selectedYear, 11, 31); // December 31st of the year
+            const startDate = new Date(2025, 0, 1); // January 1st of the year
+            const endDate = new Date(2025, 11, 31); // December 31st of the year
 
             console.log(typeof startDate)
             console.log(typeof endDate)
