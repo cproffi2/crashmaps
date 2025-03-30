@@ -129,8 +129,17 @@ app.get('/api/crashes', async (req, res) => {
             query.vict_age = vict_age
         }
 
+ 
+        // Log the query to ensure it's being built correctly
+        console.log("Constructed MongoDB query:", JSON.stringify(query));
+
+        // Check if the query is empty after all the filters
+        if (Object.keys(query).length === 0) {
+            console.log("Query is empty, applying default filter for 2025.");
+        }
+
+
         
-        console.log(`the json stringified query is ${JSON.stringify(query)}`)
         const collection = db.collection("LACityData");
 
 
