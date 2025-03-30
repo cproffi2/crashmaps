@@ -8,6 +8,7 @@ const { type } = require('os');
 const app = express();
 app.use(cors());
 
+
 console.log("every env var:", process.env);
 
 // Setup MongoDB Debug Level (if set in .env file)
@@ -82,7 +83,7 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
 
-        const { dr_no } = req.query;
+        const { dr_no, area_name, vict_sex, vict_descent } = req.query;
       
 
         let query = {};
@@ -90,6 +91,18 @@ app.get('/api/crashes', async (req, res) => {
 
         if(dr_no){
             query.dr_no = dr_no
+        }
+
+        if(area_name){
+            query.area_name = area_name
+        }
+
+        if(vict_descent){
+            query.vict_descent = vict_descent
+        }
+
+        if(vict_sex){
+            query.vict_sex = vict_sex
         }
  
         // Fetch crash data from MongoDB
