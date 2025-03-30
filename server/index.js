@@ -103,7 +103,10 @@ app.get('/api/crashes', async (req, res) => {
             console.log(`the start date is ${startDate}`)
             console.log(`the end date is ${endDate}`)
 
-            query.date_occ = new Date("2025-01-01T00:00:00.000Z")
+            query.date_occ = {
+                $gte: startDate,
+                $lte: endDate
+            };
         }
         if(dr_no){
             query.dr_no = dr_no
