@@ -116,15 +116,23 @@ app.get('/api/crashes', async (req, res) => {
             // Filter by date range (start of year to start of next year)
             const { MongoClient } = require('mongodb');
 
+
+
+            console.log("Start date:", startDate);
+            console.log("End date:", endDate);
+
+            const gteOperator = '$gte';
+            const ltOperator = '$lt';
             // Create a query using MongoDB operators
             query.date_occ = {
-                $gte: startDate,  
-                $lt: endDate      
+                
+                [gteOperator]: startDate,  
+                [ltOperator]: endDate      
             };
             // Debugging: log the query before passing to MongoDB
             console.log("Constructed MongoDB query:", JSON.stringify(query, null, 2));
 
-            
+
         }
 
         if(dr_no){
@@ -137,17 +145,11 @@ app.get('/api/crashes', async (req, res) => {
         console.log(query.date_occ.$gte)
         console.log(typeof query.date_occ.$gte)
         console.log(query.date_occ.$gt)
-        console.log(typeof query.date_occ.$gt)
+        console.log(typeof query.date_occ.$lt)
         console.log("query object:", query);
         // Fetch crash data from MongoDB
 
 
-        let queryString = JSON.stringify(query);
-
-        console.log("Query string:", queryString);
-
-        queryString = queryString.replace(`'$gte'`, `$gte`).replace(`'$lt'`, `$lt`);
-        console.log("Query string after replacement:", queryString);
         const collection = db.collection("LACityData");
         const crashes = await collection.find(query).limit(650000).toArray();
         res.json(crashes);
