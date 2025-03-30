@@ -134,8 +134,15 @@ app.get('/api/crashes', async (req, res) => {
         console.log("query object:", query);
         // Fetch crash data from MongoDB
 
+
+        let queryString = JSON.stringify(query);
+
+        console.log("Query string:", queryString);
+
+        queryString = queryString.replace(`'$gte'`, `$gte`).replace(`'$lt'`, `$lt`);
+        console.log("Query string after replacement:", queryString);
         const collection = db.collection("LACityData");
-        const crashes = await collection.find(query).limit(650000).toArray();
+        const crashes = await collection.find(querySring).limit(650000).toArray();
         res.json(crashes);
     } catch (error) {
         console.error("❌ Error fetching crash data:", error);
