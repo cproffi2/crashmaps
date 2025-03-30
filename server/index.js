@@ -82,71 +82,17 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
 
-        const { year, dr_no } = req.query;
+        const { dr_no } = req.query;
         console.log("Query parameters:", req.query);
         console.log("Year from query:", year);
 
         let query = {};
 
-        if (year) {
-
-            console.log("Year provided:", year);
-            console.log("Type of year:", typeof year);
-            // Check if the year is a valid number
-            if (isNaN(year) || year.length !== 4) {
-                return res.status(400).json({ error: "Invalid year format" });
-            }
-            // Convert year to a number
-            const yearNum = parseInt(year, 10);
-            console.log("Parsed year:", yearNum);
-            // Check if the year is within a reasonable range
-            if (yearNum < 1900 || yearNum > new Date().getFullYear()) {
-                return res.status(400).json({ error: "Year out of range" });
-            }
-            console.log("Year is valid and in range:", yearNum);
-            // Construct a date range filter for the year
-            const startDate = new Date(`${yearNum}-01-01T00:00:00Z`); // Start of the year
-            const endDate = new Date(`${yearNum}-12-31T23:59:59Z`); // End of the year
-
-            console.log("Start date:", startDate);
-            console.log("End date:", endDate);
-         
-            console.log("Type of start date:", typeof startDate);
-            console.log("Type of end date:", typeof endDate);
-            // Filter by date range (start of year to start of next year)
-            const { MongoClient } = require('mongodb');
-
-
-
-            console.log("Start date:", startDate);
-            console.log("End date:", endDate);
-
-            const gteOperator = '$gte';
-            const ltOperator = '$lt';
-            // Create a query using MongoDB operators
-            query.date_occ = {
-                
-                [gteOperator]: startDate,  
-                [ltOperator]: endDate      
-            };
-            // Debugging: log the query before passing to MongoDB
-            console.log("Constructed MongoDB query:", JSON.stringify(query, null, 2));
-
-
-        }
 
         if(dr_no){
             query.dr_no = dr_no
         }
-        console.log("MongoDB query:", query);
-        console.log("object values:", Object.values(query));
-        console.log("object keys:", Object.keys(query));
-        console.log("object length:", Object.keys(query).length);
-        console.log(query.date_occ.$gte)
-        console.log(typeof query.date_occ.$gte)
-        console.log(query.date_occ.$gt)
-        console.log(typeof query.date_occ.$lt)
-        console.log("query object:", query);
+ 
         // Fetch crash data from MongoDB
 
 
