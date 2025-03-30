@@ -114,25 +114,24 @@ app.get('/api/crashes', async (req, res) => {
             console.log("Type of start date:", typeof startDate);
             console.log("Type of end date:", typeof endDate);
             // Filter by date range (start of year to start of next year)
-        
-            
-
-            query.push({
-                $match: {
-                    date_occ: {
-                        $gte: startDate,
-                        $lt: endDate
-                    }
-                }
-            });
-
-            console.log("MongoDB query after date range:", query);
+            query.date_occ = {
+                $gte: startDate,
+                $gt: endDate
+            };
         }
 
         if(dr_no){
             query.dr_no = dr_no
         }
         console.log("MongoDB query:", query);
+        console.log("object values:", Object.values(query));
+        console.log("object keys:", Object.keys(query));
+        console.log("object length:", Object.keys(query).length);
+        console.log(query.date_occ.$gte)
+        console.log(typeof query.date_occ.$gte)
+        console.log(query.date_occ.$gt)
+        console.log(typeof query.date_occ.$gt)
+        console.log("query object:", query);
         // Fetch crash data from MongoDB
 
         const collection = db.collection("LACityData");
