@@ -36,15 +36,8 @@ async function defaultLoadData() {
 // Run the defaultLoadData when the page is loaded
 document.addEventListener('DOMContentLoaded', defaultLoadData);
 
-
-
-
-
-
-
 // Function to update the map with the crash data (add markers)
 function updateMapWithCrashData(crashData) {
-    
     // Ensure the map exists
     if (!map) {
         console.error('Map is not initialized');
@@ -65,7 +58,7 @@ function updateMapWithCrashData(crashData) {
         const formattedTime = formatTime(time_occ);
 
         // Create the marker
-        const marker = new marker({
+        const marker = new google.maps.Marker({
             position,
             map,
             title: `${formattedDate} <br> ${formattedTime} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
@@ -114,9 +107,8 @@ function formatTime(timeString) {
 
 // Function to initialize the map
 async function initMap() {
-
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-   
+
     const centerOfCulverCity = { lat: 34.0211, lng: -118.3965 };
 
     map = new Map(document.getElementById("map"), {
