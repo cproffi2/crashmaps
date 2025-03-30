@@ -3,6 +3,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const path = require('path');
 const cors = require('cors');
+const { type } = require('os');
 
 const app = express();
 app.use(cors());
@@ -107,6 +108,11 @@ app.get('/api/crashes', async (req, res) => {
             const startDate = new Date(`${yearNum}-01-01T00:00:00Z`); // Start of the year
             const endDate = new Date(`${yearNum}-12-31T23:59:59Z`); // End of the year
 
+            console.log("Start date:", startDate);
+            console.log("End date:", endDate);
+         
+            console.log("Type of start date:", typeof startDate);
+            console.log("Type of end date:", typeof endDate);
             // Filter by date range (start of year to start of next year)
             query.date_occ = {
                 $gte: startDate,
