@@ -1,6 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
+
+
+// Enable debugging
+MongoClient.prototype._debug = true;
+
 const path = require('path');
 const cors = require('cors');
 const { type } = require('os');
@@ -136,7 +141,15 @@ app.get('/api/crashes', async (req, res) => {
         
         console.log(`the json stringified query is ${JSON.stringify(query)}`)
         const collection = db.collection("LACityData");
+
+
+           // Explain how the query will be executed
+           const explain = await collection.find(query).explain("executionStats");
+           console.log(`MongoDB explain: ${JSON.stringify(explain, null, 2)}`);
         const crashes = await collection.find(query).limit(650000).toArray();
+
+        // Log the response data
+        console.log(`MongoDB query response: ${JSON.stringify(crashes, null, 2)}`);
         res.json(crashes);
     } catch (error) {
         console.error("❌ Error fetching crash data:", error);
