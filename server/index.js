@@ -4,6 +4,7 @@ const { MongoClient } = require('mongodb');
 const path = require('path');
 const cors = require('cors');
 const { type } = require('os');
+const { start } = require('repl');
 
 const app = express();
 app.use(cors());
@@ -92,6 +93,11 @@ app.get('/api/crashes', async (req, res) => {
             const startDate = new Date(year, 0, 1); // January 1st of the year
             const endDate = new Date(year, 11, 31); // December 31st of the year
 
+            console.log(typeof startDate)
+            console.log(typeof endDate)
+            console.log(`the start date is ${startDate}`)
+            console.log(`the end date is ${endDate}`)
+
             query.date_occ = {
                 $gte: startDate,
                 $lte: endDate
@@ -120,6 +126,8 @@ app.get('/api/crashes', async (req, res) => {
         // Fetch crash data from MongoDB
 
         console.log(`the query is ${query}`)
+        console.log(`the query year is ${query.year}`)
+        
         console.log(`the json stringified query is ${JSON.stringify(query)}`)
         const collection = db.collection("LACityData");
         const crashes = await collection.find(query).limit(650000).toArray();
