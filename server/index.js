@@ -115,8 +115,8 @@ app.get('/api/crashes', async (req, res) => {
             console.log("Type of end date:", typeof endDate);
             // Filter by date range (start of year to start of next year)
             query['date_occ'] = { 
-                [$gte]: startDate,
-                [$lt]: endDate
+                '$gte': startDate,
+                '$lt': endDate
             };
         }
 
