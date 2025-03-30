@@ -124,7 +124,7 @@ app.get('/api/crashes', async (req, res) => {
             query.vict_age = vict_age
         }
         // Fetch crash data from MongoDB
-
+        console.log('change')
         console.log(`the query is ${query}`)
         console.log(`the query date_occ is ${query.date_occ}`)
         console.log(`object values of date occ is ${Object.values(query.date_occ)}`)
