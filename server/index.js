@@ -14,12 +14,13 @@ const { start } = require('repl');
 const app = express();
 app.use(cors());
 
+const mocodes = require('./library')
 
-console.log("every env var:", process.env);
+// Endpoint to get the mocodes object
+app.get('/api/mocodes', (req, res) => {
+    res.json(mocodes);  // Sends the mocodes object as a JSON response
+});
 
-// Setup MongoDB Debug Level (if set in .env file)
-const debug = process.env.DEBUG || 'mongodb*';  // Default to 'mongodb*' if not set in the .env
-console.log("Mongo debug level from env:", debug);
 
 // Setup EJS for dynamic HTML rendering
 app.set('view engine', 'ejs');
@@ -95,7 +96,7 @@ app.get('/api/crashes', async (req, res) => {
 
 
         // Use current year as default if no year is specified
-        const { year, dr_no, area_name, vict_sex, vict_descent, vict_age } = req.query;
+        const { year, dr_no, area_name, vict_sex, vict_descent, vict_age, mocodes } = req.query;
         const currentYear = new Date().getFullYear(); // Get current year if no year is provided
         const selectedYear = year || 2025;  // Default to current year if no year specified
         let query = {};
@@ -132,6 +133,10 @@ app.get('/api/crashes', async (req, res) => {
  
         if(vict_age){
             query.vict_age = vict_age
+        }
+
+        if(mocodes){
+            query.mocodes = { $in: [mocodes]}
         }
 
  
