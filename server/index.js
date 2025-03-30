@@ -127,6 +127,7 @@ app.get('/api/crashes', async (req, res) => {
 
         console.log(`the query is ${query}`)
         console.log(`the query date_occ is ${query.date_occ}`)
+        console.log(`object values of date occ is ${Object.values(query.date_occ)}`)
         console.log(`the query gte is ${query.date_occ.$gte}`)
         console.log(`the typeof gte is ${typeof query.date_occ.$gte}`)
 
