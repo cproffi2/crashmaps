@@ -83,11 +83,20 @@ app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
 
-        const { dr_no, area_name, vict_sex, vict_descent } = req.query;
+        const {year,  dr_no, area_name, vict_sex, vict_descent, vict_age } = req.query;
       
 
         let query = {};
 
+        if(year){
+            const startDate = new Date(year, 0, 1); // January 1st of the year
+            const endDate = new Date(year, 11, 31); // December 31st of the year
+
+            query.date_occ = {
+                $gte: startDate,
+                $lte: endDate
+            };
+        }
 
         if(dr_no){
             query.dr_no = dr_no
@@ -105,9 +114,13 @@ app.get('/api/crashes', async (req, res) => {
             query.vict_sex = vict_sex
         }
  
+        if(vict_age){
+            query.vict_age = vict_age
+        }
         // Fetch crash data from MongoDB
 
-
+        console.log(`the query is ${query}`)
+        console.log(`the json stringified query is ${JSON.stringify(query)}`)
         const collection = db.collection("LACityData");
         const crashes = await collection.find(query).limit(650000).toArray();
         res.json(crashes);
