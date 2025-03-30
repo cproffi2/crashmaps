@@ -58,7 +58,7 @@ function updateMapWithCrashData(crashData) {
         const formattedTime = formatTime(time_occ);
 
         // Create the marker
-        const marker = new google.maps.Marker({
+        const marker = new AdvancedMarkerElement({
             position,
             map,
             title: `${formattedDate} <br> ${formattedTime} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
@@ -108,7 +108,7 @@ function formatTime(timeString) {
 // Function to initialize the map
 async function initMap() {
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-
+    const {AdvancedMarkerElement, PinElement} = await google.maps.importLibrary("marker");
     const centerOfCulverCity = { lat: 34.0211, lng: -118.3965 };
 
     map = new Map(document.getElementById("map"), {
