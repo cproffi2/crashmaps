@@ -124,16 +124,7 @@ app.get('/api/crashes', async (req, res) => {
         if(vict_age){
             query.vict_age = vict_age
         }
-        // Fetch crash data from MongoDB
-        console.log('change')
-        console.log(`the query is ${query}`)
-        console.log(`the query date_occ is ${query.date_occ}`)
-        console.log(`object values of date occ is ${Object.values(query.date_occ)}`)
-        console.log(`object entries are ${Object.entries(query.date_occ)}`)
-        console.log(`the query gte is ${query.date_occ.$gte}`)
-        console.log(`the typeof gte is ${typeof query.date_occ.$gte}`)
 
-        console.log(`the  gte get time is ${query.date_occ.$gte.getTime()}`)
         
         console.log(`the json stringified query is ${JSON.stringify(query)}`)
         const collection = db.collection("LACityData");
