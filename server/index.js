@@ -98,7 +98,7 @@ app.get('/api/crashes', async (req, res) => {
 
 
         // Use current year as default if no year is specified
-        const { year, dr_no, area_name, vict_sex, vict_descent, vict_age, mocode } = req.query;
+        const { year, dr_no, area_name, vict_sex, vict_descent, vict_age, mocodes } = req.query;
         const currentYear = new Date().getFullYear(); // Get current year if no year is provided
         const selectedYear = year || 2025;  // Default to current year if no year specified
         let query = {};
@@ -137,8 +137,8 @@ app.get('/api/crashes', async (req, res) => {
             query.vict_age = vict_age
         }
 
-        if(mocode){
-            query.mocode = { $in: [mocode]}
+        if(mocodes){
+            query.mocodes = { $in: [mocodes]}
         }
 
  
