@@ -17,7 +17,7 @@ async function filterByYearAndMocode() {
     console.log('Selected Mocode:', selectedMocode);
     let url = `/api/crashes?year=${selectedYear}`;
     if (selectedMocode) {
-        url += `&mocode=${selectedMocode}`;
+        url += `&mocodes=${selectedMocode}`;
     }
 
     // Log the URL to see if it's being generated correctly
