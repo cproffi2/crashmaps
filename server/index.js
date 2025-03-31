@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
 
-
+console.log('this is index.js')
 // Enable debugging
 MongoClient.prototype._debug = true;
 
@@ -18,6 +18,8 @@ const mocodes = require('./library')
 
 // Endpoint to get the mocodes object
 app.get('/api/mocodes', (req, res) => {
+    console.log("Received request for /api/mocodes");
+    console.log("Sending mocodes:", mocodes);
     res.json(mocodes);  // Sends the mocodes object as a JSON response
 });
 
@@ -169,6 +171,8 @@ app.get('/api/crashes', async (req, res) => {
 
 // Start Server
 const port = process.env.PORT || 5000;
+
+
 app.listen(port, async () => {
     await connectDB();
     console.log(`🚀 Server running on http://localhost:${port}`);
