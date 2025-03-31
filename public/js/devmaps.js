@@ -3,7 +3,7 @@ let markers = [];
 let map;
 let infoWindow;
 
-const mocodes = require('../../server/library');
+
 // Function to filter data by selected year
 // Function to filter data by year and mocode
 
