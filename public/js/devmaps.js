@@ -11,6 +11,8 @@ let infoWindow;
 async function filterByYearAndMocode() {
     const selectedYear = document.getElementById("year-filter").value;
     const selectedMocode = document.getElementById("mocode-filter").value;
+    console.log(document.getElementById("mocode-filter"))
+    console.log(document.getElementById("mocode-filter").value)
     console.log('Selected Year:', selectedYear);
     console.log('Selected Mocode:', selectedMocode);
     let url = `/api/crashes?year=${selectedYear}`;
