@@ -9,10 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="./css/mapstyle.css"/>
 
-    <!-- Google Maps API Script (with async loading and callback) -->
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=marker&callback=initMap">
-    </script>
+
 
 
    
@@ -30,8 +27,15 @@
     <div id="map"></div>
 <div>
         <!-- Add a dropdown for selecting the year -->
-        <select id="year-filter" onchange="filterByYearAndMocode">
+        <select id="year-filter" onchange="filterByYearAndMocode()">
             <option value="">Select Year</option>
+            <!-- Options will be populated dynamically with JavaScript -->
+        </select>
+    </div>
+
+        <!-- Add a dropdown for selecting the year -->
+        <select id="mocode-filter" onchange="filterByYearAndMocode()">
+            <option value="">Select Mocode</option>
             <!-- Options will be populated dynamically with JavaScript -->
         </select>
     </div>
@@ -74,6 +78,11 @@
                 .catch(error => console.error('Error loading mocodes:', error));
         };
     </script>
+
+        <!-- Google Maps API Script (with async loading and callback) -->
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=marker&callback=initMap">
+      </script>
 
     <!-- Form for adding crash data (optional) -->
     <!--
