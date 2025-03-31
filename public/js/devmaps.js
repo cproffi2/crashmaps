@@ -64,7 +64,7 @@ async function defaultLoadData() {
     yearSelect.value = currentYear; // Set the value to current year
 
     // Manually call the function to fetch the data for the current year
-    await filterByYear();
+    await filterByYearAndMocode();
 }
 
 // Run the defaultLoadData when the page is loaded
@@ -157,7 +157,7 @@ async function initMap() {
     infoWindow = new InfoWindow();
 
     // Fetch and update map data for the current year
-    await filterByYear();
+    filterByYearAndMocode();
 }
 
 // Ensure the map is initialized after the DOM is fully loaded
