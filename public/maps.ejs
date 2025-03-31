@@ -37,22 +37,43 @@
     </div>
 
     <script src="./js/devmaps.js"></script>
-<script>
-    // Get the current year
-    const currentYear = new Date().getFullYear();
 
-    // Populate the year dropdown dynamically with options from 2020 to the current year
-    const yearSelect = document.getElementById("year-filter");
-    for (let year = 2010; year <= currentYear; year++) {
-        const option = document.createElement("option");
-        option.value = year;
-        option.textContent = year;
-        if (year === currentYear) {
-            option.selected = true; // Set current year as the default
+
+    <script>
+        // Populate the year dropdown dynamically with options from 2020 to the current year
+        const currentYear = new Date().getFullYear();
+        const yearSelect = document.getElementById("year-filter");
+        for (let year = 2010; year <= currentYear; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            if (year === currentYear) {
+                option.selected = true; // Set current year as the default
+            }
+            yearSelect.appendChild(option);
         }
-        yearSelect.appendChild(option);
-    }
-</script>
+
+        // Function to populate the mocode dropdown from library.js
+        function populateMocodeDropdown(mocodes) {
+            const selectElement = document.getElementById("mocode-filter");
+
+            // Create an option for each mocode
+            for (let mocode in mocodes) {
+                const option = document.createElement("option");
+                option.value = mocode;
+                option.textContent = `${mocode}: ${mocodes[mocode]}`;
+                selectElement.appendChild(option);
+            }
+        }
+
+        // Call the function to populate the dropdown when the page loads
+        window.onload = function () {
+            fetch('/api/mocodes') // Replace with the correct route to fetch mocodes from the server
+                .then(response => response.json())
+                .then(data => populateMocodeDropdown(data))
+                .catch(error => console.error('Error loading mocodes:', error));
+        };
+    </script>
 
     <!-- Form for adding crash data (optional) -->
     <!--

@@ -3,12 +3,19 @@ let markers = [];
 let map;
 let infoWindow;
 
+const mocodes = require('../../server/library');
 // Function to filter data by selected year
-async function filterByYear() {
-    const selectedYear = document.getElementById("year-filter").value;
+// Function to filter data by year and mocode
 
-    // Check if a year is selected, if not, fetch the current year's data
-    const url = selectedYear ? `/api/crashes?year=${selectedYear}` : '/api/crashes';
+
+async function filterByYearAndMocode() {
+    const selectedYear = document.getElementById("year-filter").value;
+    const selectedMocode = document.getElementById("mocode-filter").value;
+
+    let url = `/api/crashes?year=${selectedYear}`;
+    if (selectedMocode) {
+        url += `&mocode=${selectedMocode}`;
+    }
 
     // Log the URL to see if it's being generated correctly
     console.log('Fetching data from URL:', url);
@@ -20,6 +27,33 @@ async function filterByYear() {
     // Handle the data and update the markers on the map as needed
     updateMapWithCrashData(data);
 }
+
+// Trigger the filtering when the dropdown values change
+document.getElementById("year-filter").addEventListener("change", filterByYearAndMocode);
+document.getElementById("mocode-filter").addEventListener("change", filterByYearAndMocode);
+
+
+
+// Populate the dropdown with mocodes
+async function populateMocodeDropdown() {
+    const selectElement = document.getElementById("mocode-filter");
+    
+    // Fetch mocodes from the backend
+    const response = await fetch('/api/mocodes');
+    const mocodes = await response.json();
+
+    // Create an option for each mocode
+    for (let mocode in mocodes) {
+        const option = document.createElement("option");
+        option.value = mocode;
+        option.textContent = `${mocode}: ${mocodes[mocode]}`;
+        selectElement.appendChild(option);
+    }
+}
+// Call the function to populate the dropdown when the page loads
+window.onload = function () {
+    populateMocodeDropdown();
+};
 
 // Function to trigger the filterByYear function for the current year on page load
 async function defaultLoadData() {
@@ -37,10 +71,12 @@ async function defaultLoadData() {
 document.addEventListener('DOMContentLoaded', defaultLoadData);
 
 // Function to update the map with the crash data (add markers)
-function updateMapWithCrashData(crashData) {
+async function updateMapWithCrashData(crashData) {
+
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
     // Ensure the map exists
-    if (!map) {
-        console.error('Map is not initialized');
+    if (!map || typeof AdvancedMarkerElement === 'undefined') {
+        console.error('Map or AdvancedMarkerElement is not initialized');
         return;
     }
 
@@ -58,10 +94,10 @@ function updateMapWithCrashData(crashData) {
         const formattedTime = formatTime(time_occ);
 
         // Create the marker
-        const marker = new google.maps.Marker({
+        const marker = new AdvancedMarkerElement({
             position,
             map,
-            title: `${formattedDate} <br> ${formattedTime} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
+            title: `${formattedDate} <br> ${time_occ} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
         });
 
         // Add click event to open infoWindow
@@ -105,6 +141,7 @@ function formatTime(timeString) {
     return `${hour}:${minute} ${ampm}`;
 }
 
+let AdvancedMarkerElement;
 // Function to initialize the map
 async function initMap() {
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
