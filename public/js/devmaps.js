@@ -176,7 +176,7 @@ function handleFormSubmission(event) {
     const latitude = document.getElementById("lat").value;
     const longitude = document.getElementById("long").value;
     const date = document.getElementById("datel").value;
-    const incidentType = document.getElementById("incidentype").value;
+    const incidentType = document.getElementById("incidenttype").value;
     // Get current timestamp for "date reported"
     const datetimerpt = new Date().toISOString();
 
