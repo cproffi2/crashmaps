@@ -171,12 +171,12 @@ function handleFormSubmission(event) {
     event.preventDefault();
 
     // Get the values from the form
-    const title = document.getElementById("titleL").value;
+    const title = document.getElementById("report").value;
     const position = document.getElementById("posl").value;
     const latitude = document.getElementById("latitude").value;
     const longitude = document.getElementById("longitude").value;
     const date = document.getElementById("datel").value;
-
+    const incidentType = document.getElementById("incidentyype").value;
     // Get current timestamp for "date reported"
     const datetimerpt = new Date().toISOString();
 
@@ -190,6 +190,7 @@ function handleFormSubmission(event) {
         longitude,
         title, // Report Title
         date: isoDate, // Date Occurred (ISO)
+        incidentType,
         datetimerpt // Date Reported (current timestamp)
     };
 
