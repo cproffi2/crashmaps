@@ -31,7 +31,7 @@ app.post('/submit-crash', async (req, res) => {
         // Log the received form data for debugging
         console.log('Received form data:', req.body);
 
-        const { position, latitude, longitude, title, date, datetimerpt } = req.body;
+        const { latitude, longitude, title, date, datetimerpt } = req.body;
 
         // Validate that all required fields are present
         if (!position || !latitude || !longitude || !title || !date || !datetimerpt) {
