@@ -172,7 +172,7 @@ function handleFormSubmission(event) {
 
     // Get the values from the form
     const title = document.getElementById("report").value;
-    const position = document.getElementById("posl").value;
+    //const position = document.getElementById("posl").value;
     const latitude = document.getElementById("lat").value;
     const longitude = document.getElementById("long").value;
     const date = document.getElementById("datel").value;
