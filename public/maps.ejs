@@ -86,31 +86,22 @@
 
     <!-- Form for adding crash data (optional) -->
 
-    <script type="text/javascript">
-        // Function to filter markers based on selected year and mocode
-        function initialize(){
-            var input = document.getElementById("posl");
-            var autocomplete = new google.maps.places.Autocomplete(input);
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var place = autocomplete.getPlace();
-                if (place.geometry) {
-                    map.setCenter(place.geometry.location);
-                    map.setZoom(15);
-                } else {
-                    document.getElementById("posl").placeholder = "Enter a location";
-                }
-            });
-        }
+
+        
+   
 
 
 
-    </script>
+  
     <div><h1>Form Submission Under Development</h1></div>
-    <form class="container" method="post" action="/">
+    <form class="container" method="post" action="/" onsubmit="handleFormSubmission(event)">
         <div>
             <label for="posl">Location: </label>
             <input class="form-control" id="posl" name="position">
         </div>
+
+        <input type="hidden" id="latl" name="lat">
+        <input type="hidden" id="longl" name="long">
      
         <div class="form-group">
             <label for="titleL">Report</label>
@@ -119,7 +110,7 @@
        
         <div>
             <label for="datel">Date Occured: </label>
-            <input class="form-control" id="datel" name="date">
+            <input class="form-control" id="datel" name="date" type="datetime-local">
         </div>
 
         <button>ADD TO MONGODB</button>

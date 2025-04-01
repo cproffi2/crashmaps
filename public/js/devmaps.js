@@ -143,19 +143,43 @@ function formatTime(timeString) {
 
     return `${hour}:${minute} ${ampm}`;
 }
-function initialize(){
+function initForm(){
+
+
     var input = document.getElementById("posl");
     var autocomplete = new google.maps.places.Autocomplete(input);
+
+
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
         if (place.geometry) {
             map.setCenter(place.geometry.location);
             map.setZoom(15);
+            
+            //store lat and long values
+            document.getElementById("lat").value = place.geometry.location.lat();
+            document.getElementById("lng").value = place.geometry.location.lng();
         } else {
             document.getElementById("posl").placeholder = "Enter a location";
         }
     });
 }
+
+
+function handleFormSubmission(event){
+
+
+
+    const dateInput = document.getElementById("date").value;
+
+    if(dateInput){
+
+        const isoDate = new Date(dateInput).toISOString();
+        document.getElementById("date").value = isoDate;
+}
+}
+
+
 let AdvancedMarkerElement;
 // Function to initialize the map
 async function initMap() {
@@ -173,7 +197,7 @@ async function initMap() {
 
     // Fetch and update map data for the current year
     filterByYearAndMocode();
-    initialize();
+    initForm();
 }
 
 // Ensure the map is initialized after the DOM is fully loaded
