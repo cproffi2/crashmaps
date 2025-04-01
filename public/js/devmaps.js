@@ -185,7 +185,7 @@ function handleFormSubmission(event) {
 
     // Create the data object
     const formData = {
-        position,
+      
         latitude,
         longitude,
         title, // Report Title
