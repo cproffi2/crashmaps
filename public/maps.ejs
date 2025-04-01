@@ -94,7 +94,7 @@
 
   
     <div><h1>Form Submission Under Development</h1></div>
-    <form class="container" method="post" action="/" onsubmit="handleFormSubmission(event)">
+    <form class="container" method="post" action="/submit-crash" onsubmit="handleFormSubmission(event)">
         <div>
             <label for="posl">Location: </label>
             <input class="form-control" id="posl" name="position">
@@ -104,16 +104,21 @@
         <input type="hidden" id="longl" name="long">
      
         <div class="form-group">
-            <label for="titleL">Report</label>
-            <textarea class="form-control" id="titleL" name="Title"></textarea>
+            <label for="Report">Report</label>
+            <textarea class="form-control" id="Report" name="Report"></textarea>
         </div>
        
         <div>
             <label for="datel">Date Occured: </label>
             <input class="form-control" id="datel" name="date" type="datetime-local">
+            <input type="hidden" id="datetimerpt" name="datetimerpt">
+        </div>
+        <div>
+            <label for="datel">Incident Type</label>
+            <input class="form-control" id="datel" name="date" type="datetime-local">
         </div>
 
-        <button>ADD TO MONGODB</button>
+        <button>Submit</button>
     </form>
     
 </body>

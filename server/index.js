@@ -23,6 +23,52 @@ app.get('/api/mocodes', (req, res) => {
     res.json(mocodes);  // Sends the mocodes object as a JSON response
 });
 
+// Route for Posting Form Submission
+
+
+app.post('/submit-crash', async (req, res) => {
+    try {
+        // Log the received form data for debugging
+        console.log('Received form data:', req.body);
+
+        const { position, latitude, longitude, title, date, datetimerpt } = req.body;
+
+        // Validate that all required fields are present
+        if (!position || !latitude || !longitude || !title || !date || !datetimerpt) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        // Convert date to ISODate format
+        const formattedDate = new Date(date).toISOString();
+        const formattedDatetimerpt = new Date(datetimerpt).toISOString();
+
+        // Create the document to insert into MongoDB
+        const crashData = {
+            position,
+            latitude: parseFloat(latitude), // Ensure latitude is a number
+            longitude: parseFloat(longitude), // Ensure longitude is a number
+            title,
+            date: formattedDate,
+            datetimerpt: formattedDatetimerpt,
+        };
+
+        // Insert the document into the "CrashReports" collection
+        const collection = db.collection('CrashReports'); // Specify the collection
+        const result = await collection.insertOne(crashData); // Insert data
+
+        // Log the result for debugging
+        console.log('Inserted crash data with ID:', result.insertedId);
+
+        // Send a response back to the client
+        res.status(201).json({ message: 'Crash data added successfully', id: result.insertedId });
+
+    } catch (error) {
+        console.error('❌ Error inserting crash data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 
 // Setup EJS for dynamic HTML rendering
 app.set('view engine', 'ejs');

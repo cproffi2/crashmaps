@@ -166,17 +166,50 @@ function initForm(){
 }
 
 
-function handleFormSubmission(event){
+function handleFormSubmission(event) {
+    // Prevent the form from submitting normally
+    event.preventDefault();
 
+    // Get the values from the form
+    const title = document.getElementById("titleL").value;
+    const position = document.getElementById("posl").value;
+    const latitude = document.getElementById("latitude").value;
+    const longitude = document.getElementById("longitude").value;
+    const date = document.getElementById("datel").value;
 
+    // Get current timestamp for "date reported"
+    const datetimerpt = new Date().toISOString();
 
-    const dateInput = document.getElementById("date").value;
+    // Convert "date occurred" to ISO format
+    const isoDate = new Date(date).toISOString();
 
-    if(dateInput){
+    // Create the data object
+    const formData = {
+        position,
+        latitude,
+        longitude,
+        title, // Report Title
+        date: isoDate, // Date Occurred (ISO)
+        datetimerpt // Date Reported (current timestamp)
+    };
 
-        const isoDate = new Date(dateInput).toISOString();
-        document.getElementById("date").value = isoDate;
-}
+    // Submit the form data to the backend
+    fetch('/submit-crash', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle success (e.g., show confirmation message)
+        console.log('Data submitted successfully:', data);
+    })
+    .catch(error => {
+        // Handle error (e.g., show error message)
+        console.error('Error submitting data:', error);
+    });
 }
 
 
