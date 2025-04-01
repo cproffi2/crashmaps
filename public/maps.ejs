@@ -81,39 +81,49 @@
 
         <!-- Google Maps API Script (with async loading and callback) -->
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=marker&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&libraries=marker,places&callback=initMap">
       </script>
 
     <!-- Form for adding crash data (optional) -->
-    <!--
+
+    <script type="text/javascript">
+        // Function to filter markers based on selected year and mocode
+        function initialize(){
+            var input = document.getElementById("posl");
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (place.geometry) {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(15);
+                } else {
+                    document.getElementById("posl").placeholder = "Enter a location";
+                }
+            });
+        }
+
+
+
+    </script>
+    
     <form class="container" method="post" action="/">
         <div>
             <label for="posl">Location: </label>
             <input class="form-control" id="posl" name="position">
         </div>
-        <div>
-            <label for="locl">Location Description: </label>
-            <input class="form-control" id="locl" name="locationDesc">
-        </div>
+     
         <div class="form-group">
             <label for="titleL">Report</label>
             <textarea class="form-control" id="titleL" name="Title"></textarea>
         </div>
+       
         <div>
-            <label for="linkl">Links: </label>
-            <input class="form-control" id="linkl" name="link">
-        </div>
-        <div>
-            <label for="typel">Type: </label>
-            <input class="form-control" id="typel" name="type">
-        </div>
-        <div>
-            <label for="datel">Date: </label>
+            <label for="datel">Date Occured: </label>
             <input class="form-control" id="datel" name="date">
         </div>
 
         <button>ADD TO MONGODB</button>
     </form>
-    -->
+    
 </body>
 </html>
