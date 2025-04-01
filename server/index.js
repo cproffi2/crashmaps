@@ -34,7 +34,7 @@ app.post('/submit-crash', async (req, res) => {
         const { latitude, longitude, title, date, datetimerpt } = req.body;
 
         // Validate that all required fields are present
-        if (!position || !latitude || !longitude || !title || !date || !datetimerpt) {
+        if (!latitude || !longitude || !title || !date || !datetimerpt) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
