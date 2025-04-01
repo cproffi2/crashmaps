@@ -143,7 +143,19 @@ function formatTime(timeString) {
 
     return `${hour}:${minute} ${ampm}`;
 }
-
+function initialize(){
+    var input = document.getElementById("posl");
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace();
+        if (place.geometry) {
+            map.setCenter(place.geometry.location);
+            map.setZoom(15);
+        } else {
+            document.getElementById("posl").placeholder = "Enter a location";
+        }
+    });
+}
 let AdvancedMarkerElement;
 // Function to initialize the map
 async function initMap() {
@@ -161,6 +173,7 @@ async function initMap() {
 
     // Fetch and update map data for the current year
     filterByYearAndMocode();
+    initialize();
 }
 
 // Ensure the map is initialized after the DOM is fully loaded
