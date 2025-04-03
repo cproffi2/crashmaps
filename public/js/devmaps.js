@@ -1,9 +1,11 @@
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 // Declare markers and map globally
 let markers = [];
 let map;
 let infoWindow;
 
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 // Function to filter data by selected year
 // Function to filter data by year and mocode
 
@@ -114,7 +116,7 @@ async function updateMapWithCrashData(crashData) {
         markers.push(marker);
     });
 
-    const markerCluster = new MarkerClusterer({markers, map})
+     new MarkerClusterer({markers, map})
     console.log(`${crashData.length} markers added.`);
 }
 
