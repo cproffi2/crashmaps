@@ -34,7 +34,7 @@ app.post('/submit-crash', async (req, res) => {
 
         const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
         const reqIp = req.ip
-        const oldClientIP =  req.connection.remoteAddress;
+        //const oldClientIP =  req.connection.remoteAddress;
         // Log the received form data for debugging
         console.log('Received form data:', req.body);
 
@@ -62,8 +62,8 @@ app.post('/submit-crash', async (req, res) => {
             age,
             incidentType,
             clientIp,
-            reqIp,
-            oldClientIp,
+            reqIp
+            //oldClientIp,
         };
 
         // Insert the document into the "CrashReports" collection
