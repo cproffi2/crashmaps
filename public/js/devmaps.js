@@ -190,6 +190,9 @@ function handleFormSubmission(event) {
     const longitude = document.getElementById("long").value; // Get value from hidden input
     const date = document.getElementById("datel").value;
     const incidentType = document.getElementById("incidenttype").value;
+    const sex = document.getElementById("sex").value;
+    const age = document.getElementById("age").value;
+
     // Get current timestamp for "date reported"
     const datetimerpt = new Date().toISOString();
     console.log(`this is latitude in handle form submission ${latitude}`);
@@ -200,6 +203,8 @@ function handleFormSubmission(event) {
     // Create the data object
     const formData = {
       
+        sex,
+        age,
         latitude,
         longitude,
         title, // Report Title

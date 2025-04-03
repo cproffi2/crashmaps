@@ -34,7 +34,7 @@ app.post('/submit-crash', async (req, res) => {
         // Log the received form data for debugging
         console.log('Received form data:', req.body);
 
-        const { latitude, longitude, title, date, datetimerpt } = req.body;
+        const { latitude, longitude, title, date, datetimerpt, sex, age } = req.body;
 
         // Validate that all required fields are present
         if (!latitude || !longitude || !title || !date || !datetimerpt) {
@@ -54,6 +54,8 @@ app.post('/submit-crash', async (req, res) => {
             title,
             date: formattedDate,
             datetimerpt: formattedDatetimerpt,
+            sex,
+            age
         };
 
         // Insert the document into the "CrashReports" collection
