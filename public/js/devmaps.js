@@ -161,12 +161,12 @@ function initForm(){
             map.setZoom(15);
             
             //store lat and long values
-            document.getElementById("lat").value = place.geometry.location
+            document.getElementById("lat").value = place.geometry.location.lat();
             document.getElementById("long").value = place.geometry.location.lng();
 
              // Log values to ensure they are being set
-             console.log("Latitude:", latitude);
-             console.log("Longitude:", longitude);
+             console.log("Latitude in initform:", place.geometry.location.lat());
+             console.log("Longitude in initform:", place.geometry.location.lng());
 
 
         } else {
@@ -192,8 +192,8 @@ function handleFormSubmission(event) {
     const incidentType = document.getElementById("incidenttype").value;
     // Get current timestamp for "date reported"
     const datetimerpt = new Date().toISOString();
-    console.log(`this is latitude ${latitude}`);
-    console.log(`this is longitude ${longitude}`);
+    console.log(`this is latitude in handle form submission ${latitude}`);
+    console.log(`this is longitude in handle form submission ${longitude}`);
     // Convert "date occurred" to ISO format
     const isoDate = new Date(date).toISOString();
 
