@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', defaultLoadData);
 async function updateMapWithCrashData(crashData) {
 
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const {MarkerClusterer} = await google.maps.importLibrary("markerclusterer");
     // Ensure the map exists
     if (!map || typeof AdvancedMarkerElement === 'undefined') {
         console.error('Map or AdvancedMarkerElement is not initialized');
@@ -113,6 +114,7 @@ async function updateMapWithCrashData(crashData) {
         markers.push(marker);
     });
 
+    new MarkerClusterer({markers, map})
     console.log(`${crashData.length} markers added.`);
 }
 
