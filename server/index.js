@@ -14,6 +14,9 @@ const { start } = require('repl');
 const app = express();
 app.use(cors());
 
+// Middleware to parse incoming JSON requests
+app.use(express.json());  // This is crucial for parsing JSON bodies
+
 const mocodes = require('./library')
 
 // Endpoint to get the mocodes object
