@@ -171,7 +171,7 @@ function initForm(){
 
 function handleFormSubmission(event) {
 
-    console.log(selectedLat, selectedLng)
+  
 
     // Prevent the form from submitting normally
     event.preventDefault();
@@ -185,7 +185,7 @@ function handleFormSubmission(event) {
     const incidentType = document.getElementById("incidenttype").value;
     // Get current timestamp for "date reported"
     const datetimerpt = new Date().toISOString();
-
+    console.log(latitude, longitude)
     // Convert "date occurred" to ISO format
     const isoDate = new Date(date).toISOString();
 
