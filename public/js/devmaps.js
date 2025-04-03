@@ -189,7 +189,7 @@ function handleFormSubmission(event) {
     const latitude = document.getElementById("lat").value; // Get value from hidden input
     const longitude = document.getElementById("long").value; // Get value from hidden input
     const date = document.getElementById("datel").value;
-    const incidentType = document.getElementById("incidenttype").value;
+    const incidentType = document.getElementById("incident-type").value;
     const sex = document.getElementById("sex").value;
     const age = document.getElementById("age").value;
 
@@ -197,6 +197,7 @@ function handleFormSubmission(event) {
     const datetimerpt = new Date().toISOString();
     console.log(`this is latitude in handle form submission ${latitude}`);
     console.log(`this is longitude in handle form submission ${longitude}`);
+    console.log(`this is incident type in handle form submission ${incidentType}`);
     // Convert "date occurred" to ISO format
     const isoDate = new Date(date).toISOString();
 
