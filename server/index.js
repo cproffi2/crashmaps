@@ -31,6 +31,8 @@ app.get('/api/mocodes', (req, res) => {
 
 app.post('/submit-crash', async (req, res) => {
     try {
+
+        const clientIp = req.ip || req.connection.remoteAddress;
         // Log the received form data for debugging
         console.log('Received form data:', req.body);
 
@@ -56,7 +58,8 @@ app.post('/submit-crash', async (req, res) => {
             datetimerpt: formattedDatetimerpt,
             sex,
             age,
-            incidentType
+            incidentType,
+            clientIp
         };
 
         // Insert the document into the "CrashReports" collection
