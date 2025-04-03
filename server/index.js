@@ -47,9 +47,10 @@ app.post('/submit-crash', async (req, res) => {
 
         // Create the document to insert into MongoDB
         const crashData = {
-          
+          coords: {
             latitude: parseFloat(latitude), // Ensure latitude is a number
             longitude: parseFloat(longitude), // Ensure longitude is a number
+          },
             title,
             date: formattedDate,
             datetimerpt: formattedDatetimerpt,
