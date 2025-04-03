@@ -185,7 +185,8 @@ function handleFormSubmission(event) {
     const incidentType = document.getElementById("incidenttype").value;
     // Get current timestamp for "date reported"
     const datetimerpt = new Date().toISOString();
-    console.log(latitude, longitude)
+    console.log(`this is latitude ${latitude}`);
+    console.log(`this is longitude ${longitude}`);
     // Convert "date occurred" to ISO format
     const isoDate = new Date(date).toISOString();
 
