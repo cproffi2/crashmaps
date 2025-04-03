@@ -32,7 +32,7 @@ app.get('/api/mocodes', (req, res) => {
 app.post('/submit-crash', async (req, res) => {
     try {
 
-        const clientIp = req.ip || req.connection.remoteAddress;
+        const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
         // Log the received form data for debugging
         console.log('Received form data:', req.body);
 
