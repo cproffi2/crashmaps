@@ -160,8 +160,8 @@ function initForm(){
             map.setZoom(15);
             
             //store lat and long values
-           selectedLat = place.geometry.location.lat(); //place.geometry.location.lat();
-           selectedLng = place.geometry.location.lng(); //document.getElementById("lng").value 
+            document.getElementById("lat").value = place.geometry.location.lat();
+            document.getElementById("long").value = place.geometry.location.lng();
         } else {
             document.getElementById("posl").placeholder = "Enter a location";
         }
@@ -179,8 +179,8 @@ function handleFormSubmission(event) {
     // Get the values from the form
     const title = document.getElementById("report").value;
     //const position = document.getElementById("posl").value;
-    const latitude = selectedLat
-    const longitude = selectedLng
+    const latitude = document.getElementById("lat").value; // Get value from hidden input
+    const longitude = document.getElementById("long").value; // Get value from hidden input
     const date = document.getElementById("datel").value;
     const incidentType = document.getElementById("incidenttype").value;
     // Get current timestamp for "date reported"
