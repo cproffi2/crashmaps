@@ -155,6 +155,7 @@ function initForm(){
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
+        console.log("Place object:", place); // Debugging log to see if place has geometry
         if (place.geometry) {
             map.setCenter(place.geometry.location);
             map.setZoom(15);
@@ -162,6 +163,12 @@ function initForm(){
             //store lat and long values
             document.getElementById("lat").value = place.geometry.location.lat();
             document.getElementById("long").value = place.geometry.location.lng();
+
+             // Log values to ensure they are being set
+             console.log("Latitude:", latitude);
+             console.log("Longitude:", longitude);
+
+
         } else {
             document.getElementById("posl").placeholder = "Enter a location";
         }
