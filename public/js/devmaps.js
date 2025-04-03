@@ -171,6 +171,7 @@ function initForm(){
 
 function handleFormSubmission(event) {
 
+    console.log(selectedLat, selectedLng)
 
     // Prevent the form from submitting normally
     event.preventDefault();
