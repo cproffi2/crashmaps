@@ -161,7 +161,7 @@ function initForm(){
             map.setZoom(15);
             
             //store lat and long values
-            document.getElementById("lat").value = place.geometry.location.lat();
+            document.getElementById("lat").value = place.geometry.location
             document.getElementById("long").value = place.geometry.location.lng();
 
              // Log values to ensure they are being set
