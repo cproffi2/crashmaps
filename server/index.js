@@ -108,52 +108,7 @@ app.post('/submit-crash', async (req, res) => {
     }
 });
 
-
-//function to connect to the DB
-
-async function connectDB() {
-    console.log("🔌 Connecting to MongoDB...");
-
-    // Check if the Mongo URI exists
-    if (!process.env.MONGODB_URI) {
-        console.error("❌ Missing MONGODB_URI");
-        return;
-    }
-
-    const mongoUri = process.env.MONGODB_URI;
-
-    try {
-        // Initialize the MongoDB client
-        const client = new MongoClient(mongoUri, {
-            serverSelectionTimeoutMS: 60000,  // Timeout after 60 seconds
-        });
-
-        // Try to connect to MongoDB
-        await client.connect();
-
-        console.log("✅ Connected to MongoDB client.");
-
-        // Ping the database to ensure connection is active
-        await client.db("admin").command({ ping: 1 });
-
-        console.log("✅ Ping successful! MongoDB connection is alive.");
-
-        // Assign the global db variable after successful connection
-        db = client.db("CrashData");
-
-        // If needed, log the database name or perform any necessary actions
-        console.log("Database set to:", db.databaseName);
-
-    } catch (error) {
-        console.error("❌ MongoDB Connection Error:", error.message, error.stack);
-    }
-}
-
-
-
-
-
-// Route: Crash Data API
+// Get function for city of LA Data collection 
 app.get('/api/crashes', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: "Database not connected" });
@@ -234,6 +189,69 @@ app.get('/api/crashes', async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+// function to get crash data from user submitted database
+
+app.get('/api/user-crashes', async (req, res) => {
+    try{
+        if(!db) return res.status(500).json({ error: "Database not connected" });
+
+        const collection = db.collection("CrashReports");
+        const crashes = await collection.find().limit(650000).toArray();
+    }
+    catch(error) {
+        console.error("❌ Error fetching crash data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+    
+});
+
+
+//function to connect to the DB
+
+async function connectDB() {
+    console.log("🔌 Connecting to MongoDB...");
+
+    // Check if the Mongo URI exists
+    if (!process.env.MONGODB_URI) {
+        console.error("❌ Missing MONGODB_URI");
+        return;
+    }
+
+    const mongoUri = process.env.MONGODB_URI;
+
+    try {
+        // Initialize the MongoDB client
+        const client = new MongoClient(mongoUri, {
+            serverSelectionTimeoutMS: 60000,  // Timeout after 60 seconds
+        });
+
+        // Try to connect to MongoDB
+        await client.connect();
+
+        console.log("✅ Connected to MongoDB client.");
+
+        // Ping the database to ensure connection is active
+        await client.db("admin").command({ ping: 1 });
+
+        console.log("✅ Ping successful! MongoDB connection is alive.");
+
+        // Assign the global db variable after successful connection
+        db = client.db("CrashData");
+
+        // If needed, log the database name or perform any necessary actions
+        console.log("Database set to:", db.databaseName);
+
+    } catch (error) {
+        console.error("❌ MongoDB Connection Error:", error.message, error.stack);
+    }
+}
+
+
+
+
+
+
 
 // Start Server
 const port = process.env.PORT || 5000;
