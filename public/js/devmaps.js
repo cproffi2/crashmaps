@@ -96,10 +96,7 @@ async function updateMapWithCrashData(crashData) {
         let iconImg = document.createElement("img");
         iconImg.src = "../assets/bikeaccident.png"
 
-        const pin = new PinElement({
-            glyph: iconImg,
-            scale: 1.5,
-          });
+     
 
         const position = { lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude) };
 
@@ -111,7 +108,7 @@ async function updateMapWithCrashData(crashData) {
         const marker = new AdvancedMarkerElement({
             position,
             map,
-            content: iconImg,
+          
             title: `${formattedDate} <br> ${time_occ} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
         });
 
