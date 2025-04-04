@@ -111,7 +111,7 @@ async function updateMapWithCrashData(crashData) {
         const marker = new AdvancedMarkerElement({
             position,
             map,
-          
+            content: pin,
             title: `${formattedDate} <br> ${time_occ} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
         });
 
