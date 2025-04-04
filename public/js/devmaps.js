@@ -93,6 +93,14 @@ async function updateMapWithCrashData(crashData) {
     crashData.forEach(({ coords, street1, street2, date_occ, time_occ, area_name, mocodes }) => {
         if (!coords || !coords.latitude || !coords.longitude) return;
 
+        let iconImg = document.createElement("img");
+        iconImg.src = "../assets/bikeaccident.png"
+
+        const pin = new PinElement({
+            glyph: iconImg,
+            scale: 1.5,
+          });
+
         const position = { lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude) };
 
         // Format the date and time
@@ -103,6 +111,7 @@ async function updateMapWithCrashData(crashData) {
         const marker = new AdvancedMarkerElement({
             position,
             map,
+            content: iconImg,
             title: `${formattedDate} <br> ${time_occ} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
         });
 
