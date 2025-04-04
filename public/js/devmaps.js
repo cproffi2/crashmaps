@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', defaultLoadData);
 // Function to update the map with the crash data (add markers)
 async function updateMapWithCrashData(crashData) {
 
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     
     // Ensure the map exists
     if (!map || typeof AdvancedMarkerElement === 'undefined') {
@@ -96,7 +96,10 @@ async function updateMapWithCrashData(crashData) {
         let iconImg = document.createElement("img");
         iconImg.src = "../assets/bikeaccident.png"
 
-     
+        const pin = new PinElement({
+            glyph: iconImg,
+            scale: 1.5,
+          });
 
         const position = { lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude) };
 
