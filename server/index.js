@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const mocodes = require('./library') //include mocodes and definitions
 
-console.log('this is index.js')
 // Enable debugging
 MongoClient.prototype._debug = true;
 
@@ -14,10 +14,33 @@ const { start } = require('repl');
 const app = express();
 app.use(cors());
 
+// Setup EJS for dynamic HTML rendering
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../public'));
+
+// Serve static assets like JS, CSS, images
+app.use(express.static(path.join(__dirname, '../public')));
+
+// include the mongodb connection URI from the .env file
+const mongoUri = process.env.MONGODB_URI;
+
+//globally scoped db
+let db;  
+
 // Middleware to parse incoming JSON requests
 app.use(express.json());  // This is crucial for parsing JSON bodies
 
-const mocodes = require('./library')
+// Route: Homepage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+// Route: Maps page with injected API key
+app.get('/maps', (req, res) => {
+    const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+    res.render('maps', { apiKey });
+});
+
 
 // Endpoint to get the mocodes object
 app.get('/api/mocodes', (req, res) => {
@@ -26,18 +49,21 @@ app.get('/api/mocodes', (req, res) => {
     res.json(mocodes);  // Sends the mocodes object as a JSON response
 });
 
+
 // Route for Posting Form Submission
 
 
 app.post('/submit-crash', async (req, res) => {
     try {
-
+        
+        //define user submitting IPs
         const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-        const reqIp = req.ip
-        //const oldClientIP =  req.connection.remoteAddress;
-        // Log the received form data for debugging
+        const reqIp = req.ip;
+
+        // log the post request body
         console.log('Received form data:', req.body);
 
+        //destructure the received body
         const { latitude, longitude, title, date, datetimerpt, sex, age, incidentType } = req.body;
 
         // Validate that all required fields are present
@@ -63,7 +89,7 @@ app.post('/submit-crash', async (req, res) => {
             incidentType,
             clientIp,
             reqIp
-            //oldClientIp,
+            
         };
 
         // Insert the document into the "CrashReports" collection
@@ -83,19 +109,8 @@ app.post('/submit-crash', async (req, res) => {
 });
 
 
+//function to connect to the DB
 
-// Setup EJS for dynamic HTML rendering
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../public'));
-
-// Serve static assets like JS, CSS, images
-app.use(express.static(path.join(__dirname, '../public')));
-
-// MongoDB Connection
-const mongoUri = process.env.MONGODB_URI;
-
-//globally scoped db
-let db;  
 async function connectDB() {
     console.log("🔌 Connecting to MongoDB...");
 
@@ -136,16 +151,7 @@ async function connectDB() {
 
 
 
-// Route: Homepage
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-});
 
-// Route: Maps page with injected API key
-app.get('/maps', (req, res) => {
-    const apiKey = process.env.GOOGLE_MAPS_API_KEY;
-    res.render('maps', { apiKey });
-});
 
 // Route: Crash Data API
 app.get('/api/crashes', async (req, res) => {
