@@ -198,6 +198,8 @@ app.get('/api/user-crashes', async (req, res) => {
 
         const collection = db.collection("CrashReports");
         const crashes = await collection.find().limit(650000).toArray();
+
+        res.json(crashes); //send response
     }
     catch(error) {
         console.error("❌ Error fetching crash data:", error);
