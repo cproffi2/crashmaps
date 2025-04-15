@@ -30,13 +30,14 @@ let db;
 // Middleware to parse incoming JSON requests
 app.use(express.json());  // This is crucial for parsing JSON bodies
 
+/*
 // Route: Homepage
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
 });
-
+*/
 // Route: Maps page with injected API key
-app.get('/maps', (req, res) => {
+app.get('/', (req, res) => {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
     res.render('maps', { apiKey });
 });
