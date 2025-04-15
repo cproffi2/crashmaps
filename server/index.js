@@ -18,8 +18,7 @@ app.use(cors());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../public'));
 
-// Serve static assets like JS, CSS, images
-app.use(express.static(path.join(__dirname, '../public')));
+
 
 // include the mongodb connection URI from the .env file
 const mongoUri = process.env.MONGODB_URI;
@@ -50,6 +49,8 @@ app.get('/api/mocodes', (req, res) => {
     res.json(mocodes);  // Sends the mocodes object as a JSON response
 });
 
+// Serve static assets like JS, CSS, images
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Route for Posting Form Submission
 
