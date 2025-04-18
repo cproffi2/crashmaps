@@ -1,4 +1,4 @@
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+//import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 // Declare markers and map globally
 let markers = [];
