@@ -111,7 +111,7 @@ async function updateMapWithCrashData(crashData) {
         const marker = new AdvancedMarkerElement({
             position,
             map,
-            content: iconImg,
+           // content: iconImg,
             title: `${formattedDate} <br> ${time_occ} <br> ${area_name} <br> ${street1} & ${street2} <br> Mocode: ${mocodes}`,
         });
 
@@ -128,7 +128,7 @@ async function updateMapWithCrashData(crashData) {
      //new MarkerClusterer({markers, map})
     console.log(`${crashData.length} markers added.`);
 
-    const markerCluster =  new markerClusterer.MarkerClusterer({ markers, map});
+    //const markerCluster =  new markerClusterer.MarkerClusterer({ markers, map});
 }
 
 // Function to clear existing markers from the map
