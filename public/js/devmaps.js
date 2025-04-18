@@ -116,7 +116,7 @@ async function updateMapWithCrashData(crashData) {
         });
 
         // Add click event to open infoWindow
-        marker.addListener("click", () => {
+        marker.addListener("gmp-click", () => {
             infoWindow.setContent(marker.title);
             infoWindow.open(map, marker);
         });
