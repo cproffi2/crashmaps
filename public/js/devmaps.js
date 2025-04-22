@@ -1,4 +1,4 @@
-//import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 // Declare markers and map globally
 let markers = [];
@@ -128,7 +128,7 @@ async function updateMapWithCrashData(crashData) {
    //  new MarkerClusterer({markers, map})
     console.log(`${crashData.length} markers added.`);
 
-   // const markerCluster =  new markerClusterer.MarkerClusterer({ markers, map});
+   //const markerCluster =  new markerCluster.MarkerClusterer({ markers, map});
 }
 
 // Function to clear existing markers from the map
