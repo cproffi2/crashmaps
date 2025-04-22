@@ -4,6 +4,7 @@
 let markers = [];
 let map;
 let infoWindow;
+let markerCluster = null;
 
 
 // Function to filter data by selected year
@@ -89,6 +90,11 @@ async function updateMapWithCrashData(crashData) {
     // Clear existing markers (if any)
     clearMarkers();
 
+    if (markerCluster) {
+        markerCluster.clearMarkers();
+        markerCluster = null;
+    }
+
     // Add new markers based on crashData
     crashData.forEach(({ coords, street1, street2, date_occ, time_occ, area_name, mocodes }) => {
         if (!coords || !coords.latitude || !coords.longitude) return;
@@ -128,7 +134,15 @@ async function updateMapWithCrashData(crashData) {
    //  new MarkerClusterer({markers, map})
     console.log(`${crashData.length} markers added.`);
 
-   const markerCluster =  new markerCluster.MarkerClusterer({ markers, map});
+    if (typeof MarkerClusterer === 'undefined') {
+        console.error('MarkerClusterer is not defined. Check that the CDN script loaded.');
+        return;
+    }
+
+    markerCluster = new MarkerClusterer({
+        markers,
+        map
+    });
 }
 
 // Function to clear existing markers from the map
