@@ -139,7 +139,7 @@ async function updateMapWithCrashData(crashData) {
         return;
     }
 
-    markerCluster = new MarkerClusterer({
+    markerCluster = new markerCluster.MarkerClusterer({
         markers,
         map
     });
